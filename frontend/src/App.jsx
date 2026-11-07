@@ -16,9 +16,9 @@ import {
   ChevronRight,
   Info
 } from 'lucide-react';
-import ConeViewer3D from './components/ConeViewer3D';
-import FrequencyChart from './components/FrequencyChart';
-import ProfileCrossSection from './components/ProfileCrossSection';
+import ConeViewer3D from './components/ConeView';
+import FrequencyChart from './components/FreqPlot';
+import ProfileCrossSection from './components/CrossSection';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('monitor'); // 'setup', 'weights', 'monitor', 'inspect'
