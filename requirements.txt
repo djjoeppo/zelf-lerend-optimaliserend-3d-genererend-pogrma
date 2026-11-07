@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pydantic
+numpy
+scipy
+pytest
+pytest-asyncio
+trimesh
+python-multipart
+httpx
