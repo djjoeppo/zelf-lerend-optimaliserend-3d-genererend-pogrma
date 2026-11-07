@@ -37,28 +37,29 @@ Het programma optimaliseert conusontwerpen voor een vooraf gekozen luidsprekermo
 - Python 3.10 of nieuwer
 - Node.js 18 of nieuwer
 
-### 1. Backend starten
+### Snel starten (1-klik launcher)
+Het programma kan eenvoudig in één keer worden opgestart via `main.py`. Dit bouwt indien nodig de frontend, start de server en opent direct automatisch uw browser:
+
 ```bash
-# Installeer Python afhankelijkheden
+# 1. Installeer dependencies (eenmalig)
 pip install -r requirements.txt
+cd frontend && npm install && cd ..
 
-# Start de FastAPI backend server (poort 8000)
-python3 -m uvicorn backend.cone_opt.api:app --host 0.0.0.0 --port 8000 --reload
+# 2. Start de studio
+python main.py
 ```
 
-### 2. Frontend starten
+De studio opent direct op `http://127.0.0.1:8000`.
+
+### Ontwikkelmodus (Optioneel)
+Voor actieve frontend ontwikkeling met hot-reloading:
 ```bash
-# Ga naar de frontend map
-cd frontend
+# Terminal 1: Backend
+python3 -m uvicorn backend.cone_opt.api:app --reload
 
-# Installeer NPM pakketten
-npm install
-
-# Start de ontwikkelserver (poort 5173)
-npm run dev
+# Terminal 2: Frontend
+cd frontend && npm run dev
 ```
-
-Open vervolgens uw browser op `http://localhost:5173`.
 
 ---
 

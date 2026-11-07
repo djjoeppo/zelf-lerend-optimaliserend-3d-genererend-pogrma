@@ -1,8 +1,11 @@
 import asyncio
 from typing import Dict, Any, Optional
+import os
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, UploadFile, File, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import Response
+from fastapi.responses import Response, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from .models import (
@@ -197,3 +200,16 @@ async def upload_custom_flange(file: UploadFile = File(...)):
         return {"status": "success", "info": state.uploaded_flange_info}
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Kon STL flens niet parsen: {str(e)}")
+
+
+# Serveer gecompileerde React frontend als die aanwezig is
+frontend_dist = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+if frontend_dist.exists() and (frontend_dist / "index.html").exists():
+    app.mount("/assets", StaticFiles(directory=str(frontend_dist / "assets")), name="assets")
+
+    @app.get("/{full_path:path}")
+    async def serve_frontend(full_path: str):
+        file_path = frontend_dist / full_path
+        if file_path.exists() and file_path.is_file():
+            return FileResponse(str(file_path))
+        return FileResponse(str(frontend_dist / "index.html"))
